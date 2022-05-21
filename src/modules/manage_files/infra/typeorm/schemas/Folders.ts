@@ -6,8 +6,8 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('cats')
-export class Cats {
+@Entity('folders')
+export class Folders {
     @ObjectIdColumn()
     id: string;
 

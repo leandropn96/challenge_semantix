@@ -1,12 +1,17 @@
 import { Module } from "@nestjs/common";
-import { ListCatsUseCase } from './listCats/listCatsUseCase'
+import { CreateFoldersUseCase } from './createFolder/CreateFoldersUseCase';
+import { RepositoriesModule as FoldersRepositoryModule } from "../contracts/repositories.module";
+
 
 @Module({
+    imports: [
+        FoldersRepositoryModule
+    ],
     providers: [
-        ListCatsUseCase
+        CreateFoldersUseCase
     ],
     exports: [
-        ListCatsUseCase
+        CreateFoldersUseCase
     ]
 })
 export class DomainsModule { }
