@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { FilesRepository } from "../infra/typeorm/repositories/FilesRepository";
 import { FoldersRepository } from '../infra/typeorm/repositories/FoldersRepository'
 
 @Module({
@@ -9,6 +10,11 @@ import { FoldersRepository } from '../infra/typeorm/repositories/FoldersReposito
             inject: [FoldersRepository],
             useClass: FoldersRepository,
         },
+        {
+            provide: 'FilesRepository',
+            inject: [FilesRepository],
+            useClass: FilesRepository,
+        }
     ],
     exports: [
         {
@@ -16,6 +22,11 @@ import { FoldersRepository } from '../infra/typeorm/repositories/FoldersReposito
             inject: [FoldersRepository],
             useClass: FoldersRepository,
         },
+        {
+            provide: 'FilesRepository',
+            inject: [FilesRepository],
+            useClass: FilesRepository,
+        }
     ],
 })
 export class RepositoriesModule { }

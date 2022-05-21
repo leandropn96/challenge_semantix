@@ -1,17 +1,22 @@
 import { Module } from "@nestjs/common";
-import { CreateFoldersUseCase } from './createFolder/CreateFoldersUseCase';
 import { RepositoriesModule as FoldersRepositoryModule } from "../contracts/repositories.module";
-
+import { CreateFoldersUseCase } from './createFolder/CreateFoldersUseCase';
+import { CreateFilesUseCase } from './createFiles/CreateFilesUseCase';
+import { DeleteFilesUseCase } from './deleteFiles/deleteFilesUseCase';
 
 @Module({
     imports: [
         FoldersRepositoryModule
     ],
     providers: [
-        CreateFoldersUseCase
+        CreateFoldersUseCase,
+        CreateFilesUseCase,
+        DeleteFilesUseCase,
     ],
     exports: [
-        CreateFoldersUseCase
+        CreateFoldersUseCase,
+        CreateFilesUseCase,
+        DeleteFilesUseCase
     ]
 })
 export class DomainsModule { }
