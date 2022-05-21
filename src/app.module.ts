@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CatsModule } from './modules/cats/cats.module';
+import { ManageFilesModule } from './modules/manage_files/manage_files.module';
 import { DatabaseModule } from './shared/infra/typeorm/database.module'
 
 @Module({
   imports: [
     DatabaseModule,
-    CatsModule,
+    ManageFilesModule,
   ],
 })
 export class AppModule { }

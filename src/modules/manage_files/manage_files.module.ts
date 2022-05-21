@@ -8,4 +8,4 @@ import { DomainsModule } from './useCases/domains.module'
         DomainsModule
     ],
 })
-export class CatsModule { }
+export class ManageFilesModule { }
