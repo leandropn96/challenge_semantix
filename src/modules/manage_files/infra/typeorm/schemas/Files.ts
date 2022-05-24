@@ -12,6 +12,9 @@ export class Files {
     id: string;
 
     @Column()
+    file_id: string;
+
+    @Column()
     folder_id: string;
 
     @Column({ default: false })

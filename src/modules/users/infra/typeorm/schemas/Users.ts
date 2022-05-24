@@ -6,16 +6,22 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('folders')
-export class Folders {
+@Entity('users')
+export class Users {
     @ObjectIdColumn()
     id: string;
 
     @Column()
-    name: string;
+    fullName: string;
 
     @Column()
-    folder_id: string
+    email: string;
+
+    @Column()
+    addressNumber: number;
+
+    @Column()
+    phoneNumber: string;
 
     @CreateDateColumn()
     created_at: Date;

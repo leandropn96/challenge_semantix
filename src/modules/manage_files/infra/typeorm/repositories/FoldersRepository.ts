@@ -11,14 +11,14 @@ export class FoldersRepository implements IFoldersRepository {
         this.ormRepository = manager.getRepository(Folders);
     }
 
-    public async create({ name }: ICreateFolderDTO): Promise<Folders> {
+    public async create({ name }: ICreateFolderDTO, folder_id: string): Promise<Folders> {
         console.log(name)
 
-        const folder = this.ormRepository.create({ name })
+        const folder = this.ormRepository.create({ name, folder_id })
         return await this.ormRepository.save(folder)
     }
 
-    public async findById(name: string): Promise<Folders> {
+    public async findByName(name: string): Promise<Folders> {
 
         return await this.ormRepository.findOne({ where: { name } });
     }
