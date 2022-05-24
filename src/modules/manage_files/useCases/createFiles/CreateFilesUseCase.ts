@@ -1,36 +1,44 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { IFilesRepository } from "../../contracts/repositories/IFilesRepositories";
+import { StorageProvider } from '../../../../shared/container/providers/StorageProvider/implementations/StorageProvider'
+import { IFoldersRepository } from "../../contracts/repositories/IFoldersRepositories";
 
 @Injectable()
 export class CreateFilesUseCase {
     constructor(
         @Inject('FilesRepository')
         private filesRepository: IFilesRepository,
+        @Inject('StorageProvider')
+        private storageProvider: StorageProvider,
+        @Inject('FoldersRepository')
+        private foldersRepository: IFoldersRepository,
     ) { }
 
-    public async execute(folder_name: string, file): Promise<void> {
+    public async execute(folder: string, file): Promise<void> {
 
-        const folder = await this.filesRepository.findByName(folder_name)
+        const { folder_id } = await this.foldersRepository.findByName(folder)
 
-        if (folder) {
+        if (!folder) {
             throw new BadRequestException({
-                title: 'Pasta Existente!',
-                message: `Já existe uma arquivo com este nome.`,
+                title: 'Pasta Inexistente!',
+                message: `Crie uma pasta com o nome '${folder}' primeiro, em seguida tente novamente.`,
                 data: null,
                 cod: 'bad.request'
             })
         }
 
-        const new_folder = await this.filesRepository.create({ folder_id: folder.folder_id, name: folder_name })
+        const server = await this.storageProvider.getServer()
 
-        if (!new_folder) {
-            throw new BadRequestException({
-                title: 'Falha ao cadastrar!',
-                message: `Não foi possivel criar a pasta.`,
-                data: null,
-                cod: 'bad.request'
-            })
-        }
+        let file_buffer = Buffer.from(file.buffer, null, Number(file.size))
+        const { fileId, fileName } = await this.storageProvider.createFile(file_buffer, server, folder_id, file.originalname)
+
+        const new_file = await this.filesRepository.create({
+            file_id: fileId,
+            folder_id,
+            name: fileName,
+        })
+
+        console.log(new_file)
 
         return
     }

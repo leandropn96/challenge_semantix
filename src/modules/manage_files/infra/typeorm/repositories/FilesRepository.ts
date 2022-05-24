@@ -11,15 +11,15 @@ export class FilesRepository implements IFilesRepository {
         this.ormRepository = manager.getRepository(Files);
     }
 
-    public async create({ folder_id, name }: ICreateFilesDTO): Promise<Files> {
+    public async create(data: ICreateFilesDTO): Promise<Files> {
 
-        const folder = this.ormRepository.create({ name, folder_id })
+        const folder = this.ormRepository.create(data)
         return await this.ormRepository.save(folder)
     }
 
-    public async findByName(name: string): Promise<Files> {
+    public async findByNameAndFolder(name: string, folder_id: string): Promise<Files> {
 
-        return await this.ormRepository.findOne({ where: { name } });
+        return await this.ormRepository.findOne({ where: { name, folder_id } });
     }
 
     public async delete(id: string): Promise<void> {

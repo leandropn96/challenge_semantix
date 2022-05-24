@@ -4,5 +4,5 @@ import { ICreateFilesDTO } from "../dtos/ICreateFiles.DTO";
 export interface IFilesRepository {
     create(data: ICreateFilesDTO): Promise<Files>;
     delete(id: string): Promise<void>;
-    findByName(name: string): Promise<Files>;
+    findByNameAndFolder(name: string, folder_id: string): Promise<Files>;
 }

@@ -1,15 +1,19 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class ICreateFilesDTO {
+export class ICreateUsersDTO {
     @ApiProperty({ required: true })
     //@IsNotEmpty({ message: 'A campanha é obrigatório.' })
-    name: string
+    fullName: string
 
     @ApiProperty({ required: true })
     //@IsNotEmpty({ message: 'A campanha é obrigatório.' })
-    file_id: string
+    email: string
 
     @ApiProperty({ required: true })
     //@IsNotEmpty({ message: 'A campanha é obrigatório.' })
-    folder_id: string
+    addressNumber: number
+
+    @ApiProperty({ required: true })
+    //@IsNotEmpty({ message: 'A campanha é obrigatório.' })
+    phoneNumber: string
 }

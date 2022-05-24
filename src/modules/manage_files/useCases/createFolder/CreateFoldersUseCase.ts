@@ -1,4 +1,5 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
+import { StorageProvider } from "src/shared/container/providers/StorageProvider/implementations/StorageProvider";
 import { ICreateFolderDTO } from "../../contracts/dtos/ICreateFolders.DTO";
 import { IFoldersRepository } from "../../contracts/repositories/IFoldersRepositories";
 
@@ -7,11 +8,13 @@ export class CreateFoldersUseCase {
     constructor(
         @Inject('FoldersRepository')
         private foldersRepository: IFoldersRepository,
+        @Inject('StorageProvider')
+        private storageProvider: StorageProvider
     ) { }
 
     public async execute(data: ICreateFolderDTO): Promise<void> {
 
-        const folder = await this.foldersRepository.findById(data.name)
+        const folder = await this.foldersRepository.findByName(data.name)
 
         if (folder) {
             throw new BadRequestException({
@@ -22,7 +25,9 @@ export class CreateFoldersUseCase {
             })
         }
 
-        const new_folder = await this.foldersRepository.create(data)
+        const { id: folder_id } = await this.storageProvider.createFulder(data.name)
+
+        const new_folder = await this.foldersRepository.create(data, folder_id)
 
         if (!new_folder) {
             throw new BadRequestException({
