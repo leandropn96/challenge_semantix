@@ -1,4 +1,4 @@
-import { Controller, Post, Res } from '@nestjs/common';
+import { Controller, Get, Post, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CreateUsersUseCase } from '../../useCases/createUsers/createUsersUseCase';
@@ -12,8 +12,10 @@ export class UsersRouter {
         private exportUsersUseCase: ExportUsersUseCase
     ) { }
 
-    @Post('importacao')
-    public async import(@Res() response: Response): Promise<Response> {
+    @Post('import')
+    public async import(
+        @Res() response: Response
+    ): Promise<Response> {
         await this.createUsersUseCase.execute()
 
         return response.status(200).json({
@@ -23,14 +25,16 @@ export class UsersRouter {
         })
     }
 
-    @Post('exportacao')
-    public async export(@Res() response: Response): Promise<Response> {
+    @Get('report')
+    public async report(
+        @Res() response: Response
+    ): Promise<Response> {
 
         await this.exportUsersUseCase.execute()
 
         return response.status(200).json({
-            title: "Importação bem sucedida!",
-            message: "Usuarios gravados no banco de dados.",
+            title: "Relatorio gerado com sucesso!",
+            message: "Relatorio inserido no GoFile.",
             cod: "ok"
         })
     }

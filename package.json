@@ -29,7 +29,6 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.2.1",
     "@nestjs/typeorm": "^8.0.4",
-    "bottleneck": "^2.19.5",
     "export-to-csv": "^0.2.1",
     "form-data": "^4.0.0",
     "mongoose": "^6.3.4",
@@ -37,7 +36,6 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.4.0",
-    "throttled-queue": "^2.1.4",
     "typeorm": "^0.3.6",
     "xml2json": "^0.12.0"
   },
