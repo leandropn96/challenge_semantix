@@ -11,7 +11,7 @@
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
@@ -19,7 +19,7 @@ $ npm install
 ```bash
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 ```
 
