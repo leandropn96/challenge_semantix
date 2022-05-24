@@ -32,13 +32,11 @@ export class CreateFilesUseCase {
         let file_buffer = Buffer.from(file.buffer, null, Number(file.size))
         const { fileId, fileName } = await this.storageProvider.createFile(file_buffer, server, folder_id, file.originalname)
 
-        const new_file = await this.filesRepository.create({
+        await this.filesRepository.create({
             file_id: fileId,
             folder_id,
             name: fileName,
         })
-
-        console.log(new_file)
 
         return
     }

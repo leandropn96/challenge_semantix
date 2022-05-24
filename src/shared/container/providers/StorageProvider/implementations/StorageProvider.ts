@@ -11,8 +11,10 @@ class StorageProvider {
     ) { }
 
     public async getServer(): Promise<string> {
+
         let server = ''
-        const url = `https://api.gofile.io/getServer`;
+        const url = `${process.env.GOFILE_URL}/getServer`;
+
         await this.http.get(url,
             {
                 headers: {
@@ -35,11 +37,11 @@ class StorageProvider {
     public async createFulder(folder_name: string): Promise<IFolderModel> {
         let folder: IFolderModel
 
-        const url = `https://api.gofile.io/createFolder`;
+        const url = `${process.env.GOFILE_URL}/createFolder`;
         await this.http.put(url, {
             folderName: folder_name,
             parentFolderId: "ffc58220-d175-496b-8b3f-e87e00538909",
-            token: 'nwI8kHwSzLBJPbIFtRoJQnK8VQioJLDl'
+            token: process.env.GOFILE_TOKEN
         },
             {
                 headers: {
@@ -51,7 +53,6 @@ class StorageProvider {
                 folder = res.data.data
             })
             .catch((e) => {
-                console.log(e)
                 const err = JSON.parse(JSON.stringify(e))
                 throw new InternalServerErrorException(err.message);
             })
@@ -60,15 +61,15 @@ class StorageProvider {
     }
 
     public async createFile(file: any, server: string, folder_id: string, file_name: string): Promise<IFileModel> {
-        let new_file: IFileModel
 
+        let new_file: IFileModel
         var FormData = require('form-data');
         let data = new FormData();
         data.append('teste', file, file_name);
-        data.append('token', 'nwI8kHwSzLBJPbIFtRoJQnK8VQioJLDl')
+        data.append('token', process.env.GOFILE_TOKEN)
         data.append('folderId', folder_id)
-
         let url = `https://${server}.gofile.io/uploadFile`
+
         await this.http.post(url, data,
             {
                 headers: {
@@ -91,7 +92,9 @@ class StorageProvider {
 
     public async deleteFile(file_id: string): Promise<string> {
         let status = ''
-        const url = `https://api.gofile.io/deleteContent`;
+
+        const url = `${process.env.GOFILE_URL}/deleteContent`;
+
         await this.http.delete(url,
             {
                 headers: {
@@ -99,7 +102,7 @@ class StorageProvider {
                 },
                 data: {
                     contentsId: file_id,
-                    token: 'nwI8kHwSzLBJPbIFtRoJQnK8VQioJLDl'
+                    token: process.env.GOFILE_TOKEN
                 }
             })
             .toPromise()
