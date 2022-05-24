@@ -7,10 +7,10 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1')
 
   const config = new DocumentBuilder()
-    .setTitle('Title API')
-    .setDescription('Descrição da API')
+    .setTitle('Desafo Técnico')
+    .setDescription('Automação de users LinkApi e Storage GoFile')
     .setVersion('1.0')
-    .addTag('api')
+    .addTag('Leandro Pereira Nunes')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-doc', app, document);
