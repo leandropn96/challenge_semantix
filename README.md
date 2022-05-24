@@ -27,7 +27,7 @@ $ yarn start:dev
 - BASE_URL: http://localhost:3334/api/v1/
 
 ## SWAGGER
-- URL: http://localhost:3334/doc-api
+- URL: http://localhost:3334/api-doc
 
 ## BANCO DE DADOS
 - LINK: [Banco de dados mongo](https://dashboard.absam.io/service/41513/webssh).
